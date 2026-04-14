@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Queue It — Send a drink, make a memory</title>
+  <meta name="description" content="Queue It lets you send a real drink to a friend at any bar in the city. Pay now, they redeem it when they arrive." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --amber:     #EF9F27;
+      --amber-dk:  #B8760F;
+      --bg:        #111008;
+      --bg2:       #1A1810;
+      --bg3:       #222018;
+      --chalk:     #F5F0E8;
+      --chalk-dim: #9A9080;
+      --teal:      #2DD4BF;
+      --radius:    14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--chalk);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ──────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 40px;
+      background: rgba(17,16,8,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--amber);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--chalk-dim);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--chalk); }
+
+    /* ── HERO ─────────────────────────────────────── */
+    .hero {
+      text-align: center;
+      padding: 100px 24px 80px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(239,159,39,0.15);
+      color: var(--amber);
+      border: 1px solid rgba(239,159,39,0.3);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 16px;
+      margin-bottom: 28px;
+      letter-spacing: 0.3px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 7vw, 64px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 span { color: var(--amber); }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--chalk-dim);
+      max-width: 500px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--amber);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 28px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: #f5aa3a; transform: translateY(-1px); }
+
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--chalk);
+      font-weight: 600;
+      font-size: 15px;
+      padding: 14px 28px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.4); transform: translateY(-1px); }
+
+    /* ── PHONE MOCKUP ─────────────────────────────── */
+    .mockup-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 60px 24px;
+    }
+
+    .phone {
+      width: 240px;
+      height: 480px;
+      background: var(--bg2);
+      border-radius: 36px;
+      border: 2px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .phone::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: -60px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(239,159,39,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .phone-emoji { font-size: 52px; }
+    .phone-title { font-size: 18px; font-weight: 800; color: var(--amber); }
+    .phone-sub   { font-size: 12px; color: var(--chalk-dim); text-align: center; padding: 0 24px; }
+
+    .phone-card {
+      background: var(--bg3);
+      border-radius: 12px;
+      padding: 14px 20px;
+      margin: 4px 20px 0;
+      border: 1px solid rgba(255,255,255,0.06);
+      width: 180px;
+    }
+
+    .phone-card-top { font-size: 11px; color: var(--chalk-dim); margin-bottom: 4px; }
+    .phone-card-main { font-size: 14px; font-weight: 700; color: var(--chalk); }
+    .phone-card-badge {
+      display: inline-block;
+      background: rgba(239,159,39,0.2);
+      color: var(--amber);
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      margin-top: 6px;
+    }
+
+    /* ── HOW IT WORKS ─────────────────────────────── */
+    .section {
+      padding: 80px 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 12px;
+    }
+
+    .section h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 48px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .step {
+      background: var(--bg2);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 28px;
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(239,159,39,0.15);
+      color: var(--amber);
+      font-weight: 800;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .step h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .step p  { font-size: 14px; color: var(--chalk-dim); line-height: 1.6; }
+
+    /* ── FOOTER ───────────────────────────────────── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: gap;
+      gap: 16px;
+    }
+
+    .footer-left { font-size: 13px; color: var(--chalk-dim); }
+    .footer-left span { color: var(--amber); font-weight: 700; }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--chalk-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--chalk); }
+
+    /* ── LEGAL PAGE ───────────────────────────────── */
+    .legal-page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 24px 100px;
+    }
+
+    .legal-page h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+
+    .legal-page .updated {
+      font-size: 13px;
+      color: var(--chalk-dim);
+      margin-bottom: 40px;
+    }
+
+    .legal-page h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 36px 0 10px;
+      color: var(--amber);
+    }
+
+    .legal-page p, .legal-page li {
+      font-size: 15px;
+      color: var(--chalk-dim);
+      line-height: 1.75;
+    }
+
+    .legal-page ul { padding-left: 20px; margin-top: 8px; }
+    .legal-page li { margin-bottom: 6px; }
+    .legal-page a  { color: var(--amber); }
+
+    /* ── VISIBILITY ROUTING ───────────────────────── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .nav-links { gap: 16px; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="#" onclick="showPage('home')">🍺 Queue It</a>
+    <ul class="nav-links">
+      <li><a href="#how" onclick="showPage('home')">How it works</a></li>
+      <li><a href="#" onclick="showPage('privacy')">Privacy</a></li>
+      <li><a href="mailto:support@queueit.app">Support</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HOME PAGE ─────────────────────────────────────────── -->
+  <div id="page-home" class="page active">
+
+    <section class="hero">
+      <div class="hero-badge">🎉 Now available on iOS</div>
+      <h1>Send a drink.<br /><span>Make a memory.</span></h1>
+      <p>Queue It lets you send a real drink to a friend at any bar in the city. Pay now, they redeem it when they arrive — no tab-splitting, no Venmo requests.</p>
+      <div class="cta-row">
+        <a href="#" class="btn-primary">Download on iOS</a>
+        <a href="#how" class="btn-secondary">See how it works</a>
+      </div>
+    </section>
+
+    <div class="mockup-wrap">
+      <div class="phone">
+        <div class="phone-emoji">🍸</div>
+        <div class="phone-title">Queue It</div>
+        <div class="phone-sub">A drink is waiting for you at The Violet Hour</div>
+        <div class="phone-card">
+          <div class="phone-card-top">From Will · just now</div>
+          <div class="phone-card-main">🍹 Negroni</div>
+          <div class="phone-card-badge">Pending · Show QR to claim</div>
+        </div>
+      </div>
+    </div>
+
+    <section class="section" id="how">
+      <div class="section-label">How it works</div>
+      <h2>Three steps. One great night.</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Pick a venue &amp; drink</h3>
+          <p>Browse bars near you, choose a drink from their real menu, and pick who you're sending it to.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Pay securely</h3>
+          <p>Check out with Apple Pay or any card. Stripe handles the payment — we never store your card details.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>They show the QR</h3>
+          <p>Your friend gets notified instantly. They show the bartender a QR code and the drink is poured.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h3>Capture the moment</h3>
+          <p>After redeeming, snap a photo and share it to the social feed. Your friends see the love in real time.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ── PRIVACY PAGE ───────────────────────────────────────── -->
+  <div id="page-privacy" class="page">
+    <div class="legal-page">
+      <h1>Privacy Policy</h1>
+      <p class="updated">Last updated: April 14, 2026</p>
+
+      <p>Queue It ("we", "us", or "our") operates the Queue It mobile application (the "App"). This Privacy Policy explains how we collect, use, and protect your information when you use our App. By using the App you agree to the terms of this policy.</p>
+
+      <h2>1. Information We Collect</h2>
+      <p>We collect information you provide directly:</p>
+      <ul>
+        <li>Account information: name, username, email address, and optional phone number</li>
+        <li>Profile information: bio, city, and profile photo</li>
+        <li>Payment information: processed securely by Stripe — we never store raw card numbers</li>
+        <li>Contacts: with your permission, we access your contacts only to find friends already on Queue It</li>
+        <li>Photos: drink photos you choose to post to the social feed</li>
+        <li>Push token: to send you drink notifications and friend activity alerts</li>
+      </ul>
+
+      <h2>2. How We Use Your Information</h2>
+      <ul>
+        <li>To process drink orders and issue redemption codes to recipients</li>
+        <li>To send push notifications when you receive a drink or a friend request is accepted</li>
+        <li>To match you with friends via phone contacts (hashed and never stored on our servers)</li>
+        <li>To display your posts on the in-app social feed</li>
+        <li>To prevent fraud and verify users are 21 or older</li>
+        <li>To comply with legal obligations</li>
+      </ul>
+
+      <h2>3. Payment Processing</h2>
+      <p>All payments are handled by Stripe, Inc. We do not store your credit card, debit card, or bank account information. Stripe's privacy policy is available at <a href="https://stripe.com/privacy" target="_blank">stripe.com/privacy</a>.</p>
+
+      <h2>4. Sharing Your Information</h2>
+      <p>We do not sell your personal information. We share data only in the following limited circumstances:</p>
+      <ul>
+        <li>With Stripe to process payments and issue refunds</li>
+        <li>With Expo (Expo Push Notifications) to deliver push notifications</li>
+        <li>With venue operators, solely to facilitate drink redemption</li>
+        <li>If required by law or to protect the rights and safety of our users</li>
+      </ul>
+
+      <h2>5. Contact Matching</h2>
+      <p>If you grant contacts permission, phone numbers from your address book are used only to identify which of your contacts are already on Queue It. Numbers are hashed before transmission and are never stored or used for any other purpose.</p>
+
+      <h2>6. Social Feed</h2>
+      <p>Photos and captions you post to the Queue It feed are visible to other users of the App. You can delete your posts at any time from your profile.</p>
+
+      <h2>7. Data Retention</h2>
+      <p>We retain your account information for as long as your account is active. You may request deletion of your account and associated data by emailing <a href="mailto:privacy@queueit.app">privacy@queueit.app</a>. Payment records may be retained for up to 7 years as required by financial regulations.</p>
+
+      <h2>8. Age Requirement</h2>
+      <p>Queue It is intended solely for users who are 21 years of age or older. We do not knowingly collect data from anyone under 21. If you believe a minor has created an account, please contact us immediately at <a href="mailto:privacy@queueit.app">privacy@queueit.app</a>.</p>
+
+      <h2>9. Security</h2>
+      <p>We use industry-standard measures to protect your information, including TLS encryption in transit and secure, access-controlled databases. No method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.</p>
+
+      <h2>10. Your Rights</h2>
+      <p>Depending on your location, you may have the right to access, correct, or delete your personal data. To exercise these rights, contact us at <a href="mailto:privacy@queueit.app">privacy@queueit.app</a>.</p>
+
+      <h2>11. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. We will notify you of significant changes by updating the date at the top of this page. Continued use of the App after changes constitutes your acceptance of the updated policy.</p>
+
+      <h2>12. Contact Us</h2>
+      <p>Questions about this Privacy Policy? Email us at <a href="mailto:privacy@queueit.app">privacy@queueit.app</a>.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-left">© 2026 <span>Queue It</span>. Must be 21+ to use. Available on iOS.</div>
+    <ul class="footer-links">
+      <li><a href="#" onclick="showPage('privacy')">Privacy Policy</a></li>
+      <li><a href="mailto:support@queueit.app">Support</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    function showPage(name) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + name).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Route /privacy via URL hash
+    if (window.location.hash === '#privacy') showPage('privacy');
+    window.addEventListener('hashchange', () => {
+      if (window.location.hash === '#privacy') showPage('privacy');
+      else showPage('home');
+    });
+  </script>
+
+</body>
+</html>
