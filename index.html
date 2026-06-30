@@ -29,7 +29,7 @@
       line-height: 1.6;
     }
 
-    /* ── NAV ──────────────────────────────────────── */
+    /* ── NAV ────────────────────────────────── */
     nav {
       position: sticky;
       top: 0;
@@ -67,7 +67,7 @@
 
     .nav-links a:hover { color: var(--chalk); }
 
-    /* ── HERO ─────────────────────────────────────── */
+    /* ── HERO ───────────────────────────────── */
     .hero {
       text-align: center;
       padding: 100px 24px 80px;
@@ -141,7 +141,7 @@
 
     .btn-secondary:hover { border-color: rgba(255,255,255,0.4); transform: translateY(-1px); }
 
-    /* ── PHONE MOCKUP ─────────────────────────────── */
+    /* ── PHONE MOCKUP ─────────────────────────── */
     .mockup-wrap {
       display: flex;
       justify-content: center;
@@ -201,7 +201,7 @@
       margin-top: 6px;
     }
 
-    /* ── HOW IT WORKS ─────────────────────────────── */
+    /* ── HOW IT WORKS ─────────────────────────── */
     .section {
       padding: 80px 24px;
       max-width: 1000px;
@@ -254,15 +254,24 @@
     .step h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
     .step p  { font-size: 14px; color: var(--chalk-dim); line-height: 1.6; }
 
-    /* ── FOOTER ───────────────────────────────────── */
+    /* ── FOOTER ───────────────────────────────── */
     footer {
       border-top: 1px solid rgba(255,255,255,0.06);
       padding: 40px 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: gap;
+      flex-wrap: wrap;
       gap: 16px;
+    }
+
+    .footer-sms {
+      width: 100%;
+      font-size: 12px;
+      color: var(--chalk-dim);
+      line-height: 1.6;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
     .footer-left { font-size: 13px; color: var(--chalk-dim); }
@@ -283,7 +292,7 @@
 
     .footer-links a:hover { color: var(--chalk); }
 
-    /* ── LEGAL PAGE ───────────────────────────────── */
+    /* ── LEGAL PAGE ───────────────────────────── */
     .legal-page {
       max-width: 720px;
       margin: 0 auto;
@@ -320,7 +329,7 @@
     .legal-page li { margin-bottom: 6px; }
     .legal-page a  { color: var(--amber); }
 
-    /* ── VISIBILITY ROUTING ───────────────────────── */
+    /* ── VISIBILITY ROUTING ───────────────────── */
     .page { display: none; }
     .page.active { display: block; }
 
@@ -334,7 +343,7 @@
 <body>
 
   <nav>
-    <a class="nav-logo" href="#" onclick="showPage('home')">🍺 Queue It</a>
+    <a class="nav-logo" href="#" onclick="showPage('home')">&#127866; Queue It</a>
     <ul class="nav-links">
       <li><a href="#how" onclick="showPage('home')">How it works</a></li>
       <li><a href="#" onclick="showPage('privacy')">Privacy</a></li>
@@ -342,13 +351,13 @@
     </ul>
   </nav>
 
-  <!-- ── HOME PAGE ─────────────────────────────────────────── -->
+  <!-- ── HOME PAGE ─────────────────────────────────────────────── -->
   <div id="page-home" class="page active">
 
     <section class="hero">
-      <div class="hero-badge">🎉 Now available on iOS</div>
+      <div class="hero-badge">&#127881; Now available on iOS</div>
       <h1>Send a drink.<br /><span>Make a memory.</span></h1>
-      <p>Queue It lets you send a real drink to a friend at any bar in the city. Pay now, they redeem it when they arrive — no tab-splitting, no Venmo requests.</p>
+      <p>Queue It lets you send a real drink to a friend at any bar in the city. Pay now, they redeem it when they arrive &mdash; no tab-splitting, no Venmo requests.</p>
       <div class="cta-row">
         <a href="#" class="btn-primary">Download on iOS</a>
         <a href="#how" class="btn-secondary">See how it works</a>
@@ -357,13 +366,13 @@
 
     <div class="mockup-wrap">
       <div class="phone">
-        <div class="phone-emoji">🍸</div>
+        <div class="phone-emoji">&#127864;</div>
         <div class="phone-title">Queue It</div>
         <div class="phone-sub">A drink is waiting for you at The Violet Hour</div>
         <div class="phone-card">
-          <div class="phone-card-top">From Will · just now</div>
-          <div class="phone-card-main">🍹 Negroni</div>
-          <div class="phone-card-badge">Pending · Show QR to claim</div>
+          <div class="phone-card-top">From Will &middot; just now</div>
+          <div class="phone-card-main">&#127865; Negroni</div>
+          <div class="phone-card-badge">Pending &middot; Show QR to claim</div>
         </div>
       </div>
     </div>
@@ -375,12 +384,12 @@
         <div class="step">
           <div class="step-num">1</div>
           <h3>Pick a venue &amp; drink</h3>
-          <p>Browse bars near you, choose a drink from their real menu, and pick who you're sending it to.</p>
+          <p>Browse bars near you, choose a drink from their real menu, and pick who you&rsquo;re sending it to.</p>
         </div>
         <div class="step">
           <div class="step-num">2</div>
           <h3>Pay securely</h3>
-          <p>Check out with Apple Pay or any card. Stripe handles the payment — we never store your card details.</p>
+          <p>Check out with Apple Pay or any card. Stripe handles the payment &mdash; we never store your card details.</p>
         </div>
         <div class="step">
           <div class="step-num">3</div>
@@ -397,20 +406,20 @@
 
   </div>
 
-  <!-- ── PRIVACY PAGE ───────────────────────────────────────── -->
+  <!-- ── PRIVACY PAGE ────────────────────────────────────────────────── -->
   <div id="page-privacy" class="page">
     <div class="legal-page">
       <h1>Privacy Policy</h1>
       <p class="updated">Last updated: April 14, 2026</p>
 
-      <p>Queue It ("we", "us", or "our") operates the Queue It mobile application (the "App"). This Privacy Policy explains how we collect, use, and protect your information when you use our App. By using the App you agree to the terms of this policy.</p>
+      <p>Queue It (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;) operates the Queue It mobile application (the &ldquo;App&rdquo;). This Privacy Policy explains how we collect, use, and protect your information when you use our App. By using the App you agree to the terms of this policy.</p>
 
       <h2>1. Information We Collect</h2>
       <p>We collect information you provide directly:</p>
       <ul>
         <li>Account information: name, username, email address, and optional phone number</li>
         <li>Profile information: bio, city, and profile photo</li>
-        <li>Payment information: processed securely by Stripe — we never store raw card numbers</li>
+        <li>Payment information: processed securely by Stripe &mdash; we never store raw card numbers</li>
         <li>Contacts: with your permission, we access your contacts only to find friends already on Queue It</li>
         <li>Photos: drink photos you choose to post to the social feed</li>
         <li>Push token: to send you drink notifications and friend activity alerts</li>
@@ -427,7 +436,7 @@
       </ul>
 
       <h2>3. Payment Processing</h2>
-      <p>All payments are handled by Stripe, Inc. We do not store your credit card, debit card, or bank account information. Stripe's privacy policy is available at <a href="https://stripe.com/privacy" target="_blank">stripe.com/privacy</a>.</p>
+      <p>All payments are handled by Stripe, Inc. We do not store your credit card, debit card, or bank account information. Stripe&rsquo;s privacy policy is available at <a href="https://stripe.com/privacy" target="_blank">stripe.com/privacy</a>.</p>
 
       <h2>4. Sharing Your Information</h2>
       <p>We do not sell your personal information. We share data only in the following limited circumstances:</p>
@@ -437,6 +446,7 @@
         <li>With venue operators, solely to facilitate drink redemption</li>
         <li>If required by law or to protect the rights and safety of our users</li>
       </ul>
+      <p>Mobile information will not be shared with third parties/affiliates for marketing or promotional purposes. All the above categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.</p>
 
       <h2>5. Contact Matching</h2>
       <p>If you grant contacts permission, phone numbers from your address book are used only to identify which of your contacts are already on Queue It. Numbers are hashed before transmission and are never stored or used for any other purpose.</p>
@@ -465,7 +475,8 @@
   </div>
 
   <footer>
-    <div class="footer-left">© 2026 <span>Queue It</span>. Must be 21+ to use. Available on iOS.</div>
+    <p class="footer-sms">By providing your phone number, you agree to receive text messages from Queue It Social. Message and data rates may apply. Message frequency varies. Reply STOP to opt-out.</p>
+    <div class="footer-left">&copy; 2026 <span>Queue It</span>. Must be 21+ to use. Available on iOS.</div>
     <ul class="footer-links">
       <li><a href="#" onclick="showPage('privacy')">Privacy Policy</a></li>
       <li><a href="mailto:support@queueit.app">Support</a></li>
